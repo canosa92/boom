@@ -3,10 +3,16 @@ body {
   background-color: #f0f0f0;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 h1 {
   color: #333;
+}
+
+.red{
+  color: #e74c3c;
+  font-weight: bolder;
 }
 #result .green {
   color: #2ecc71;
@@ -14,4 +20,11 @@ h1 {
 
 #result .red {
   color: #e74c3c;
+}
+#restart{
+background-color: rgb(0, 255, 234);
+color: #031f0f;
+padding: 5px;
+border-radius: 5px;
+cursor: pointer;
 }
