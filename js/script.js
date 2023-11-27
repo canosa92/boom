@@ -8,12 +8,13 @@ const numeroUsuario = document.getElementById('userInput')
 const resultado = document.getElementById('result')
 const reinicio = document.getElementById('restart')
 let ultimasPartidas=JSON.parse(localStorage.getItem('historialPartidas'))||[] 
+let partidasGanadas = 0
+let partidasPerdidas = 0
 let bombas = JSON.parse(localStorage.getItem('bombas'))|| 0
 let numeroAzar
 
-//creamos la promesa
-
-userInput.addEventListener('click',()=>{
+//creamos las promesas
+userInput.addEventListener('keydown',()=>{
 let contador = new Promise((resolve) => {
     let segundos = 5;
     setInterval(()=>{
@@ -26,8 +27,6 @@ let contador = new Promise((resolve) => {
                 }, 1000)
                 })
                 
-                
-
 //La promesa que nos devuelve un numero al azar entre 1 y 3
 let promesaAzar = new Promise ((resolve) =>{
     setTimeout(()=>{
@@ -44,31 +43,32 @@ contador.then(()=>{
 
         ultimasPartidas.push('Ganada')
         localStorage.setItem('historialPartidas',JSON.stringify(ultimasPartidas))
-        bombas ++
+        bombas++
+        partidasGanadas++
         localStorage.setItem('bombas',JSON.stringify(bombas))
        
 
         resultado.innerHTML = `<h3 class='green'>¡Felicidades! Has desactivado la bomba</h3>
         <h4>Has escojido el ${numeroUsuario.value} que es el mismo que ${numeroAzar}</h4>
-        <p>Llevas ${bombas} y tu historial ha sido = ${ultimasPartidas}</p>`
+        <p>Llevas ${bombas} y tu historial ha sido = <span class="green">${partidasGanadas} Partidas ganadas</span> y <span class="red">${partidasPerdidas} partidas perdidas </span></p>       
+        <p>${ultimasPartidas}</p>`
      
     }else {
 
         ultimasPartidas.push('Perdida')
         localStorage.setItem('historialPartidas',JSON.stringify(ultimasPartidas))
-        bombas ++
+        bombas++
+        partidasPerdidas++
         localStorage.setItem('bombas',JSON.stringify(bombas))
     
 
         resultado.innerHTML = `<h3 class='red'>Lo siento la bomba ha estallado </h3>
         <h4>Has escojido el ${numeroUsuario.value} que es el distinto a ${numeroAzar}</h4>
-        <p>Llevas ${bombas} y tu historial ha sido = ${ultimasPartidas}</p>`
+        <p>Llevas ${bombas} y tu historial ha sido = <span class="green">${partidasGanadas} Partidas ganadas</span> y <span class="red">${partidasPerdidas} partidas perdidas</span></p>       
+        <p>${ultimasPartidas}</p>`
     }
-
 })
-
 })
-
 
 //para reiniciar el juegom y las memorias de las partidas
 reinicio.addEventListener(`click`,()=>{
@@ -77,6 +77,8 @@ reinicio.addEventListener(`click`,()=>{
     localStorage.setItem('bombas',0)
     ultimasPartidas = [];
     bombas = 0
+    partidasGanadas = 0
+    partidasPerdidas = 0
     resultado.innerHTML='',
     cuentaAtras.innerHTML= ''
 

@@ -14,13 +14,11 @@ h1 {
   color: #e74c3c;
   font-weight: bolder;
 }
-#result .green {
+.green {
   color: #2ecc71;
 }
 
-#result .red {
-  color: #e74c3c;
-}
+
 #restart{
 background-color: rgb(0, 255, 234);
 color: #031f0f;
